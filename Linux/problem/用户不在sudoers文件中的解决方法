@@ -1,0 +1,26 @@
+    1.切换到root用户
+    输入su root，然后会提示输入密码，如下：
+    [user@localhost ~]$ su root
+    密码:
+    [user@localhost ~]#
+
+    2.查看/etc/sudoers文件权限，如果只读权限，修改为可写权限
+    [root@localhost /]# ls -l /etc/sudoers
+    -r--r-----. 1 root root 4002 3月   2 2012 /etc/sudoers
+    [root@localhost /]# chmod 777 /etc/sudoers
+    [root@localhost /]# ls -l /etc/sudoers
+    -rwxrwxrwx. 1 root root 4002 3月   2 2012 /etc/sudoers
+
+    3.编辑/etc/sudoers文件，给用户添加权限
+    [root@localhost /]# vim /etc/sudoers
+    在文件中找到root ALL=(ALL) ALL，在该行下添加：
+    username    ALL=(ALL)     ALL
+    说明：格式为（用户名    网络中的主机=（执行命令的目标用户）    执行的命令范围）
+
+    4、保存退出，并恢复/etc/sudoers的访问权限为440
+    [root@localhost /]# chmod 440 /etc/sudoers
+    [root@localhost /]# ls -l /etc/sudoers
+    -r--r-----. 1 root root 4022 3月  19 22:59 /etc/sudoers
+
+    5.切换到普通用户
+    [root@localhost /]# exit
